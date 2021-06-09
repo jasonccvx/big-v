@@ -1,21 +1,18 @@
 '''
 Created on June 4, 2021
-Implementation of crawling the big-V list and each combo information in the list
+Implementation of testing the output of the tables
 
 @author: jasonzheng (jasonccvx@outlook.com)
-@version: 0.1.1
+@version: 0.2.1
 '''
-import v_list
-import v_details
-import json
-import v_details_graph
+import v_get
 
 
 def show_output(alist):
     """
     show the list information to the terminal
     :param alist: a list
-    :return: Null
+    :rtype: Null
     """
     for i in range(len(alist)):
         print(alist[i])
@@ -23,23 +20,12 @@ def show_output(alist):
 
 def __main__():
     """
-    get the details of all combos in the big-V list
+    get all table data loaded to the database
     :rtype: Null
     """
-    json_result = v_list.get_json_of_bigv_list()
-    list_dict = json.loads(json_result)
-
-    bigv_list = v_list.extract_list_info(list_dict)
-    show_output(bigv_list)
-    v_list.output_list_to_file(bigv_list)
-
-    for i in range(len(bigv_list)):
-        (table1, table2) = v_details.get_details_dict_of_combo(bigv_list[i][1], bigv_list[i][3])
-        print('{:-^40}'.format(table1[0]))
-        show_output(table1)
-        show_output(table2)
-
-    v_details_graph.get_graph_infor_of_combo('10631134')
+    table1 = v_get.get_bigv_table()
+    table2, table3 = v_get.get_combo_and_phased_infor_table()
+    table4, table5, table6 = v_get.get_daily_infor_table()
 
 
 __main__()

@@ -3,7 +3,7 @@ Created on June 3, 2021
 Implementation of crawling the basic information of a fund portfolio
 
 @author: jasonzheng (jasonccvx@outlook.com)
-@version: 0.2.3
+@version: 0.3.1
 '''
 import requests
 import json
@@ -14,7 +14,7 @@ def get_static_combo_details_json_of_combo(code, id):
     get the json string of the combo static information which is specified by the code and id
     :param code: the code of the combo
     :param id: the id of the user which occupies the combo
-    :return: json string
+    :return r.text: json string
     """
     url = 'https://h5.1234567.com.cn/AggregationStaticService/GetCustomBusinessInterfaceWithSchema/ComboDetailOpAggr'
     header = {
@@ -51,7 +51,7 @@ def get_index_details_json_of_combo(code):
     """
     get the json string of the combo basic information which is specified by the code
     :param code: the code of the combo
-    :return: json string
+    :return r.text: json string
     """
     url = 'https://tradeapilvs6.1234567.com.cn/User/SubA/SubAGradingIndexDetailV2'
     header = {
@@ -78,20 +78,45 @@ def get_index_details_json_of_combo(code):
     return r.text
 
 
-def get_details_dict_of_combo(code, id):
+def get_user_fans_count(code, id):
     """
-    get combo information by the code and user id
-    :param code: the code of a specified combo
-    :param id: the id of user
-    :return: the basic information table and score information table of the combo
+    get the num of one's fans
+    :param code: for a user
+    :param id: the id of the user
+    :return user_fans_count: the num of the user's fans
+    """
+    json_result = get_static_combo_details_json_of_combo(code, id)
+    static_combo_details_dict = json.loads(json_result)
+    user_fans_count = static_combo_details_dict["data"]["FZHBatchGetUserInfos"]["Data"][0]["user_fans_count"]
+    return user_fans_count
+
+
+def get_combo_name(code):
+    """
+    get the name of the combo specified by the code
+    :param code: the code of one combo
+    :return name: the name of the specifed combo
+    """
+    json_result = get_index_details_json_of_combo(code)
+    index_details_dict = json.loads(json_result)
+    name = index_details_dict["Data"]["Name"]
+    return name
+
+
+def get_basic_and_static_infor_of_combo(code, id):
+    """
+    get combo basic information and static data of the combo
+    :param code: the code of the combo
+    :param id: the id of the user
+    :return basic_info: contains basic information
+    :return phased_info: contains static data
     """
     json_result = get_static_combo_details_json_of_combo(code, id)
     json_result2 = get_index_details_json_of_combo(code)
     static_combo_details_dict = json.loads(json_result)
     index_details_dict = json.loads(json_result2)
 
-    table_combo_info = []
-    table_score_info = []
+    basic_info = []
 
     # locate the basic information
     name = index_details_dict["Data"]["Name"]
@@ -102,34 +127,32 @@ def get_details_dict_of_combo(code, id):
     latest_total_profit = index_details_dict["Data"]["AssetVol"]
     create_time = index_details_dict["Data"]["GroupCreatTime"]
     user_nickname = static_combo_details_dict["data"]["FZHBatchGetUserInfos"]["Data"][0]["user_nickname"]
-    user_fans_count = static_combo_details_dict["data"]["FZHBatchGetUserInfos"]["Data"][0]["user_fans_count"]
 
-    # add basic information into the table_combo_info
-    table_combo_info.append(code)
-    table_combo_info.append(name)
-    table_combo_info.append(style)
-    table_combo_info.append(annualized_rate_since_establishment)
-    table_combo_info.append(latest_daily_rate)
-    table_combo_info.append(latest_nav)
-    table_combo_info.append(latest_total_profit)
-    table_combo_info.append(create_time)
-    table_combo_info.append(user_nickname)
-    table_combo_info.append(user_fans_count)
+    # add basic information into the basic_info
+    basic_info.append(name)
+    basic_info.append(user_nickname)
+    basic_info.append(style)
+    basic_info.append(annualized_rate_since_establishment)
+    basic_info.append(latest_daily_rate)
+    basic_info.append(latest_nav)
+    basic_info.append(latest_total_profit)
+    basic_info.append(create_time)
 
-    # locate the score information and add them into the table_score_info
+    phased_info = []
+
+    # locate the phased information and add them into the phased_info
     indexinfo = index_details_dict["Data"]["SubIntervalIndexList"]
     for i in range(len(indexinfo)):
         item = indexinfo[i]["SubIndexList"]
-        table_score_info.append([indexinfo[i]["IntervalType"]])
+        phased_info.append([name, indexinfo[i]["IntervalType"]])
         for j in range(len(item)):
-            table_score_info[i].append(item[j]["IndexValue"])
+            phased_info[i].append(item[j]["IndexValue"])
 
     scoreinfo = static_combo_details_dict["data"]["SubAScoreInfo"]["Data"]["ScoreInfo"]
     for i in range(len(scoreinfo)):
         score = scoreinfo[i]["ScoreDetail"]
-        for j in range(len(table_score_info)):
-            if table_score_info[j][0] == int(score["IntervalType"]):
-                table_score_info[j].append(score["CompositeScore"])
+        for j in range(len(phased_info)):
+            if phased_info[j][0] == int(score["IntervalType"]):
+                phased_info[j].append(score["CompositeScore"])
 
-    return table_combo_info, table_score_info
-
+    return basic_info, phased_info

@@ -3,7 +3,7 @@ Created on June 3, 2021
 Implementation of crawling the graph information of a certain fund portfolio
 
 @author: jasonzheng (jasonccvx@outlook.com)
-@version: 0.2.0
+@version: 0.3.1
 '''
 import requests
 import json
@@ -14,7 +14,7 @@ def get_json_of_graph_info(code):
     """
     get the json string of the combo graph information which is specified by the code
     :param code: the code of the combo
-    :return: json string
+    :return r.text: json string
     """
     kv = {
         'DataType': 1,
@@ -25,7 +25,6 @@ def get_json_of_graph_info(code):
         'version': '6.4.2',
         'product': 'EFund',
         'plat': 'Iphone',
-        'version': '6.4.2',
         'ServerVersion': '6.4.2',
         'UserId': '',
         'CToken': '',
@@ -64,11 +63,11 @@ def get_json_of_graph_info(code):
     return r.text
 
 
-def get_graph_infor_of_combo(code):
+def show_graph_of_combo(code):
     """
     draw the graph of the combo which is specified by the code
     :param code: the code of the combo which is needed to draw its graph
-    :return: Null
+    :rtype: Null
     """
     result = get_json_of_graph_info(code)
     result_dict = json.loads(result)  # converting JSON string to Python object
@@ -87,7 +86,7 @@ def get_graph_infor_of_combo(code):
     total_profit = []
 
     graphlist = result_dict["Data"]["GraphSpotList"]
-    for i in range(365):
+    for i in range(len(graphlist)):
         date.append(i)
         total_rate.append(graphlist[i]["AccountNav"]["TotalRate"])
         index_total_rate.append(graphlist[i]["IndexNav"]["TotalRate"])
@@ -113,3 +112,26 @@ def get_graph_infor_of_combo(code):
     ax3.set_ylabel('TotalProfit')
     plt.show()
 
+
+def get_graph_infor_of_combo(code):
+    """
+    get all graph information of the specified combo
+    :param code: the code of the combo
+    :return total_rate_info: contains total rate and index total rate
+    :return nav_info: contains nav and daily rate
+    :return total_profit_info: contains total profit
+    """
+    result = get_json_of_graph_info(code)
+    result_dict = json.loads(result)  # converting JSON string to Python object
+
+    total_rate_info = []
+    nav_info = []
+    total_profit_info = []
+
+    graphlist = result_dict["Data"]["GraphSpotList"]
+    for i in range(len(graphlist)):
+        total_rate_info.append([str(i), graphlist[i]["AccountNav"]["TotalRate"], graphlist[i]["IndexNav"]["TotalRate"]])
+        nav_info.append([str(i), graphlist[i]["AccountNav"]["Nav"], graphlist[i]["AccountNav"]["Rate"]])
+        total_profit_info.append([str(i), graphlist[i]["TotalProfit"]])
+
+    return total_rate_info, nav_info, total_profit_info
