@@ -3,7 +3,7 @@ Created on June 9, 2021
 Implementation of interfaces that get the all tables in the database relational schema
 
 @author: jasonzheng (jasonccvx@outlook.com)
-@version: 0.1.2
+@version: 0.1.3
 '''
 import v_list
 import v_details
@@ -57,7 +57,7 @@ def get_daily_infor_table():
 
     for i in range(len(bigv_list)):
         total_rate_infor, nav_infor, total_profit_infor = v_details_graph.get_graph_infor_of_combo(bigv_list[i][0])
-        name = bigv_list[i][2]
+        name = bigv_list[i][3]
         for j in range(len(total_rate_infor)):
             total_rate_infor[j].insert(0, name)
             nav_infor[j].insert(0, name)

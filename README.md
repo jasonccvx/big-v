@@ -13,5 +13,7 @@
     * v_get.py v.0.1.2
     * v_main_func.py v.0.2.1
 
-* 2021.6.10 更新v_details_graph.get_graph_infor_of_combo(code)
+* 2021.6.10 更新
+    * v_list.py v.0.3.2
     * v_details_graph.py v.0.3.2
+    * v_get.py v.0.1.3

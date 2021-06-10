@@ -3,7 +3,7 @@ Created on June 3, 2021
 Implementation of crawling the big-V list
 
 @author: jasonzheng (jasonccvx@outlook.com)
-@version: 0.3.1
+@version: 0.3.2
 '''
 import requests
 import json
@@ -47,7 +47,7 @@ def get_bigv_list():
         # the display2 is the recent three months score
         for j in range(len(strategylist)):
             item = strategylist[j]
-            list_info.append([item["FCode"], item["PassportID"], item["UserNickname"]])
+            list_info.append([item["FCode"], item["PassportID"], item["UserNickname"], item["ShortName"]])
 
     return list_info
 
