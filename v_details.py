@@ -3,7 +3,7 @@ Created on June 3, 2021
 Implementation of crawling the basic information of a fund portfolio
 
 @author: jasonzheng (jasonccvx@outlook.com)
-@version: 0.3.2
+@version: 0.3.3
 '''
 import requests
 import json
@@ -103,6 +103,17 @@ def get_combo_name(code):
     return name
 
 
+def perc_to_decimal(data):
+    if data[-1] == '%':
+        data = data[:-1]
+        tmp = float(data)
+        tmp *= 0.01
+        tmp = round(tmp, 4)
+        return str(tmp)
+    else:
+        return data
+
+
 def get_basic_and_static_infor_of_combo(code, id):
     """
     get combo basic information and static data of the combo
@@ -146,7 +157,7 @@ def get_basic_and_static_infor_of_combo(code, id):
         item = indexinfo[i]["SubIndexList"]
         phased_info.append([name, indexinfo[i]["IntervalType"]])
         for j in range(len(item)):
-            phased_info[i].append(item[j]["IndexValue"])
+            phased_info[i].append(perc_to_decimal(item[j]["IndexValue"]))
 
     scoreinfo = static_combo_details_dict["data"]["SubAScoreInfo"]["Data"]["ScoreInfo"]
     for i in range(len(scoreinfo)):
