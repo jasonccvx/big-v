@@ -3,7 +3,7 @@ Created on June 3, 2021
 Implementation of crawling the basic information of a fund portfolio
 
 @author: jasonzheng (jasonccvx@outlook.com)
-@version: 0.3.1
+@version: 0.3.2
 '''
 import requests
 import json
@@ -152,7 +152,7 @@ def get_basic_and_static_infor_of_combo(code, id):
     for i in range(len(scoreinfo)):
         score = scoreinfo[i]["ScoreDetail"]
         for j in range(len(phased_info)):
-            if phased_info[j][0] == int(score["IntervalType"]):
+            if phased_info[j][1] == int(score["IntervalType"]):
                 phased_info[j].append(score["CompositeScore"])
 
     return basic_info, phased_info
