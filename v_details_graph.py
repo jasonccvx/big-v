@@ -3,11 +3,12 @@ Created on June 3, 2021
 Implementation of crawling the graph information of a certain fund portfolio
 
 @author: jasonzheng (jasonccvx@outlook.com)
-@version: 0.3.1
+@version: 0.3.2
 '''
 import requests
 import json
 import matplotlib.pyplot as plt
+import time
 
 
 def get_json_of_graph_info(code):
@@ -130,8 +131,12 @@ def get_graph_infor_of_combo(code):
 
     graphlist = result_dict["Data"]["GraphSpotList"]
     for i in range(len(graphlist)):
-        total_rate_info.append([str(i), graphlist[i]["AccountNav"]["TotalRate"], graphlist[i]["IndexNav"]["TotalRate"]])
-        nav_info.append([str(i), graphlist[i]["AccountNav"]["Nav"], graphlist[i]["AccountNav"]["Rate"]])
-        total_profit_info.append([str(i), graphlist[i]["TotalProfit"]])
+        time_stamp = int(graphlist[i]["NavDate"][6:-5])
+        time_array = time.localtime(time_stamp)
+        # because of all time stamps are at zero o'clock
+        other_sytle_time = time.strftime("%Y-%m-%d", time_array)
+        total_rate_info.append([other_sytle_time, graphlist[i]["AccountNav"]["TotalRate"], graphlist[i]["IndexNav"]["TotalRate"]])
+        nav_info.append([other_sytle_time, graphlist[i]["AccountNav"]["Nav"], graphlist[i]["AccountNav"]["Rate"]])
+        total_profit_info.append([other_sytle_time, graphlist[i]["TotalProfit"]])
 
     return total_rate_info, nav_info, total_profit_info
