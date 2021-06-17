@@ -104,6 +104,11 @@ def get_combo_name(code):
 
 
 def perc_to_decimal(data):
+    """
+    change the percentage data to a string of decimal data
+    :param data: percentage data
+    :return data: a string, containing the decimal data
+    """
     if data[-1] == '%':
         data = data[:-1]
         tmp = float(data)

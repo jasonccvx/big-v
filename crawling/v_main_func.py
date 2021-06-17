@@ -23,9 +23,10 @@ def __main__():
     get all table data loaded to the database
     :rtype: Null
     """
-    table1 = v_get.get_bigv_table()
+    # table1 = v_get.get_bigv_table()
     table2, table3 = v_get.get_combo_and_phased_infor_table()
-    table4, table5, table6 = v_get.get_daily_infor_table()
+    # table4, table5, table6 = v_get.get_daily_infor_table()
+    show_output(table3)
 
 
 __main__()
