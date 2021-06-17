@@ -1,0 +1,305 @@
+
+body {
+    margin: 0;
+    color: #345;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#wrap { /*固定宽度，并居中显示*/
+    width: 1400px;
+    margin: 0px auto;
+}
+
+#header {
+    background-color: #f1f1f1;
+    padding: 1px;
+    text-align: center;
+}
+
+.topnav {
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    background-color: #333;
+    z-index: 1000;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.topnav button {
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* 链接 - 修改颜色 */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav button:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+#main {
+    width: 100%;
+    height: 2600px;
+}
+
+#footer {
+    height: 15px;
+    color: #789;
+    margin: 10px;
+    padding-top: 8px;
+    border-top: solid 1px #eef;
+    white-space: nowrap;
+}
+
+.popup_copyright {
+    text-align: center;
+    font-size: 9pt;
+}
+
+.block-one {
+    width: 1160px;
+    height: 400px;
+    margin: 20px 100px 10px 90px;
+    float: left;
+    background-color: #f0f0f0;
+    overflow: hidden; /* 隐藏溢出区域的内容 */
+    border-left-style: solid;
+    border-left-color: floralwhite;
+    border-left-width: 10px;
+    padding: 20px;
+}
+
+.block-firstintwo {
+    width: 510px;
+    height: 400px;
+    margin: 20px 45px 20px 90px;
+    float: left;
+    background-color: #f0f0f0;
+    overflow: hidden; /* 隐藏溢出区域的内容 */
+    border-left-style: solid;
+    border-left-color: floralwhite;
+    border-left-width: 10px;
+    padding: 20px;
+}
+
+.block-secondintwo {
+    width: 510px;
+    height: 400px;
+    margin: 20px 100px 20px 45px;
+    float: left;
+    background-color: #f0f0f0;
+    overflow: hidden; /* 隐藏溢出区域的内容 */
+    border-left-style: solid;
+    border-left-color: floralwhite;
+    border-left-width: 10px;
+    padding: 20px;
+}
+
+.details-one {
+    width: 1160px;
+    height: 60px;
+    margin: 50px 100px 10px 90px;
+    padding: 20px;
+    float: left;
+    text-align: center;
+    border: solid 3px #a1a1a1;
+    border-radius: 15px;
+    background: #fff;
+}
+
+.details-firstintwo {
+    width: 510px;
+    height: 60px;
+    margin: 50px 45px 20px 90px;
+    padding: 20px;
+    float: left;
+    text-align: center;
+    border: solid 3px #a1a1a1;
+    border-radius: 15px;
+    background: #fff;
+}
+
+.details-secondintwo {
+    width: 510px;
+    height: 60px;
+    margin: 50px 100px 20px 45px;
+    padding: 20px;
+    float: left;
+    text-align: center;
+    border: solid 3px #a1a1a1;
+    border-radius: 15px;
+    background: #fff;
+}
+
+.btn {
+    display: inline-block;
+    border-radius: 36px;
+    color: #fff;
+    background-color: #1abc9c;
+    border-color: #1abc9c;
+    padding: 6px 28px 7px;
+    font-size: 14px;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    line-height: 1.5;
+    transition: color .2s linear, background-color .2s linear, border .2s linear;
+    cursor: pointer;
+}
+
+.btn:hover {
+    color: #fff;
+    background-color: #179b80;
+    border-color: #179b80;
+}
+
+.bigvtable-wrap {
+    position: fixed;
+    z-index: 1000;
+    right: 0px;
+    margin: 20px 0px;
+    width: 137px;
+    transition: width 0.2s linear;
+    -webkit-transition: width 0.2s linear;
+    transform: translateZ(0) scale(1, 1);
+    -webkit-transform: translateZ(0) scale(1, 1);
+    background-color: #f5f5f5;
+    box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+}
+
+.bigvtable-wrap:hover {
+    width: 280px;
+}
+
+.bigvtable {
+    width: 280px;
+    height: 480px;
+    overflow-y: auto;
+}
+
+.bigvtable td {
+    height: 30px;
+    width: 50%;
+    /* line-height: 42px; */
+    text-align: center;
+    transition: all .14s linear;
+}
+
+.bigvtable td:hover {
+    background-color: #ddd;
+}
+
+.current {
+    background-color: slategrey
+}
+
+.combotable-wrap {
+    position: fixed;
+    z-index: 1000;
+    left: 0px;
+    margin: 20px 0px;
+    width: 130px;
+    transition: width 0.5s linear;
+    -webkit-transition: width 0.5s linear;
+    transform: translateZ(0) scale(1, 1);
+    -webkit-transform: translateZ(0) scale(1, 1);
+    background-color: #f5f5f5;
+    box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+}
+
+.combotable-wrap:hover {
+   /* height: 200px;*/
+    width: 930px;
+}
+
+.combotable {
+   /* height: 200px;*/
+    width: 930px;
+    height: 480px;
+    overflow-y: auto;
+}
+
+.combotable td {
+    height: 30px;
+    width: 50%;
+    /* line-height: 42px; */
+    text-align: center;
+    transition: all .14s linear;
+}
+
+.combotable td:hover {
+    background-color: #ddd;
+}
+
+/* 容器 <div> - 需要定位下拉内容 */
+.dropdown-comboname {
+    position: relative;
+    /* display: inline-block; */
+    float: left;
+    margin: 20px;
+    width: 100px;
+}
+
+/* 第一列表头 (组合名)  */
+.tb-header {
+    background-color: #f1f1f1;
+    /* color: white; */
+    padding: 8px 4px 8px 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    display: inline-table;
+}
+
+/* 右侧表格内容 (默认隐藏) */
+.tb-contain {
+    background-color: #f9f9f9;
+    display: none;
+    position: absolute;
+    padding: 8px 8px 8px 4px;;
+    font-size: 16px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* 在鼠标移上去后显示右侧表格 */
+.dropdown-comboname:hover .tb-contain {
+    display: inline-table;
+}
+
+/* 当右侧表格内容显示后修改第一列表头的背景颜色 */
+.dropdown-comboname:hover .tb-header {
+    background-color: #ddd;
+}
+
+/* 下拉菜单的链接 */
+.tb-contain a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* 鼠标移上去后修改下拉菜单链接颜色 */
+.tb-contain a:hover {
+    background-color: #f1f1f1
+}

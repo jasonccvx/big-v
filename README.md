@@ -18,3 +18,6 @@
     * v_details.py v.0.3.3
     * v_details_graph.py v.0.3.2
     * v_get.py v.0.1.3
+    * v_main_func.py v.0.2.1
+
+* 2021.6.17 增加DataBaseTrain_Maven
